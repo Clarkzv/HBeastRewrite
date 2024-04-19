@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block metatitle %}Hanime API{% endblock metatitle %}
+{% block metadescription %}Enjoy unlimited hentai and anime content{% endblock metadescription %}
+{% block metakeywords %}hentai, hentai api, anime api {% endblock metakeywords %}
+{% block title %}HanimeBeast{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title">API Details</h2>
+                    <hr>
+                    <h3 class="card-subtitle mb-2 text-muted">API Routes:</h3>
+                    <ul>
+                        <li>/api/trending/{time}/{page}</li>
+                        <p>For trending page. {page} = integer and {time} = day/week/month/3_month/6_month/year</p>
+                        <li>/api/video/{slug}</li>
+                        <p>For getting detailed video page</p>
+                        <li>/api/browse</li>
+                        <p>For getting browse data</p>
+                        <li>/api/browse/{type}/{category}/{page}</li>
+                        <p>Type = hentai-tags/brands, category = category of type</p>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
