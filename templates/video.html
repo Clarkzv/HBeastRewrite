@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 {% block metatitle %}{{ video['name'] }}{% endblock metatitle %}
-{% block ogtitle %}{{ video['name'] }}{% endblock ogtitle %}
 {% block metadescription %}{{ video['description'] }}{% endblock metadescription %}
-{% block metakeywords %}{% for t in video['tags'] %} {{ t['name'], }}{% endfor %} {% endblock metakeywords %}
-{% block title %}{{ video['name'] }}| HanimeBeast{% endblock %}
+{% block metakeywords %}{% for t in video['tags'] %} {{ t['name']|safe }},{% endfor %}{% endblock metakeywords %}
+{% block title %}{{ video['name'] }} | HanimeBeast{% endblock %}
 {% block content %}
 
 <style>
@@ -22,195 +21,138 @@
         height: auto;
     }
 </style>
-    <style>
-        #watchbtn {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 12px;
-            cursor: pointer;
-            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease-in-out;
-        }
 
-        #watchbtn.watched {
-            background-color: #f00;
-            color: #fff;
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-    </style>
-
-        <!-- Metadata card -->
 <div class="card mt-5">
-  <div class="row no-gutters">
-    <div class="col-md-6">
-      <img class="card-img" src={{ video['cover_url'] }} alt="{{ video['name'] }}">
-    </div>
-    <div class="col-md-6">
-      <div class="card-body p-4 ">
-        <h4 class="card-title"><strong>{{ video['name'] }}</strong></h4>
-        <h6 class="card-subtitle mb-2"><i class="fa-solid fa-eye"></i> {{ video['views'] }}</h6>
-
-        <div class="d-flex justify-content-start align-items-center mb-3">
-            <a href="https://api.whatsapp.com/send?text={{ request.url }}" class="btn btn-dark btn-sm m-1"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
-            <a href="https://facebook.com/share.php?u={{ request.url }}" class="btn btn-dark btn-sm m-1"><i class="fa-brands fa-facebook"></i></a>
-            <a href="https://twitter.com/intent/tweet?url={{ request.url }}" class="btn btn-dark btn-sm m-1"><i class="fa-brands fa-twitter fa-lg"></i></a>
-            <a href="https://t.me/share/url?url={{ request.url }}" class="btn btn-dark btn-sm m-1"><i class="fa-brands fa-telegram"></i></a>
-        
-        
+    <div class="row no-gutters">
+        <div class="col-md-6">
+            <img class="card-img" src="{{ video['cover_url'] }}" alt="{{ video['name'] }}">
         </div>
-          {% for t in video['tags'] %}
-            <a href="{{ t['link'] }}" class="btn btn-dark btn-sm m-1">{{ t['name'] }}</a>
-          {% endfor %}
-        <p class="card-text">{{ video['description']|safe }}</p>
-        <div class="card-footer">
-    <button id="watchbtn" class="unwatched">Mark as watched</button>
-           </div>
-      </div>
-    </div>
-  </div>
-</div>
-    <script>
-        const btn = document.getElementById('watchbtn');
-        const watchedItems = getWatchedItemsFromCookie();
+        <div class="col-md-6">
+            <div class="card-body p-4">
+                <h4 class="card-title"><strong>{{ video['name'] }}</strong></h4>
+                <h6 class="card-subtitle mb-2"><i class="fas fa-eye"></i> {{ video['views'] }}</h6>
 
-        btn.addEventListener('click', () => {
-            const currentRoute = window.location.href;
-
-            if (btn.classList.contains('unwatched')) {
-                watchedItems.push(currentRoute);
-                updateWatchedItemsInCookie(watchedItems);
-                btn.classList.remove('unwatched');
-                btn.classList.add('watched');
-                btn.innerText = 'Watched';
-            } else if (btn.classList.contains('watched')) {
-                const index = watchedItems.indexOf(currentRoute);
-                if (index !== -1) {
-                    watchedItems.splice(index, 1);
-                    updateWatchedItemsInCookie(watchedItems);
-                    btn.classList.remove('watched');
-                    btn.classList.add('unwatched');
-                    btn.innerText = 'Mark as watched';
-                }
-            }
-        });
-
-        function getWatchedItemsFromCookie() {
-            const cookies = document.cookie.split(';');
-            for (const cookie of cookies) {
-                const [name, value] = cookie.trim().split('=');
-                if (name === 'watchedItems') {
-                    return value.split(',');
-                }
-            }
-            return [];
-        }
-
-        function updateWatchedItemsInCookie(items) {
-            document.cookie = `watchedItems=${items.join(',')}`;
-        }
-
-        // Check if the current route is in the list of watched items
-        const currentRoute = window.location.href;
-        if (watchedItems.includes(currentRoute)) {
-            btn.classList.remove('unwatched');
-            btn.classList.add('watched');
-            btn.innerText = 'Watched';
-        } else {
-            btn.classList.remove('watched');
-            btn.classList.add('unwatched');
-            btn.innerText = 'Mark as watched';
-        }
-    </script>
-
-
-        
-        <!-- Video card -->
-        <div class="card mt-5">
-            <div class="card-body p-3">
-                <!-- Video content -->
-                <div class="card" id="video-container" style="display: none;">
-                    <div class="card-body">
-                        <video id="live" autoplay controls>
-                            <source src="" type="video/mp4" id="video-source">
-                        </video>
-                    </div>
-                    <div id="alertDiv" class="alert alert-warning">
-                        If the video is stuck, tap on the play button again and wait for 2-10 seconds for it to load.
-                    </div>
+                <div class="d-flex justify-content-start align-items-center mb-3">
+                    <a href="https://api.whatsapp.com/send?text={{ request.url }}" class="btn btn-dark btn-sm m-1"><i class="fab fa-whatsapp fa-lg"></i></a>
+                    <a href="https://facebook.com/sharer/sharer.php?u={{ request.url }}" class="btn btn-dark btn-sm m-1"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/intent/tweet?url={{ request.url }}" class="btn btn-dark btn-sm m-1"><i class="fab fa-twitter"></i></a>
+                    <a href="https://telegram.me/share/url?url={{ request.url }}" class="btn btn-dark btn-sm m-1"><i class="fab fa-telegram-plane"></i></a>
                 </div>
-                <!-- Stream buttons and other video-related content -->
-                <h3 class="my-3">Stream</h3>
-                <div class="btn-group-horizontal m-3" role="group" aria-label="horizontal button group">
-                    <!-- Stream buttons -->
-                    {% for v in video['streams'] %}
-    {% if v['height'] != "1080" %}
-        <button onclick="playVideo('{{ v['url'] }}')" class="btn btn-outline-secondary btn-sm">
-            <i class="fa-solid fa-play"></i> {{ v['height'] }}
-        </button>
-    {% endif %}
-{% endfor %}
-                </div>
-        <a class="btn-primary btn btn-sm m-3" href="{{ request.url }}/playlist.m3u"> Playlist m3u </a>
 
-                <a href="https://www.buymeacoffee.com/immodded" class="btn btn-warning btn-sm">Donate</a>
-          <a href="https://t.me/immodded" class="btn btn-success btn-sm">Report</a>
+                {% for t in video['tags'] %}
+                    <a href="{{ t['link'] }}" class="btn btn-dark btn-sm m-1">{{ t['name'] }}</a>
+                {% endfor %}
+
+                <p class="card-text">{{ video['description']|safe }}</p>
+                <div class="card-footer">
+                    <button id="watchbtn" class="unwatched">Mark as watched</button>
+                </div>
             </div>
         </div>
     </div>
-
-
+</div>
 
 <script>
-    function playVideo(link) {
-        var video = document.getElementById('live');
-        var videoSource = document.getElementById('video-source');
-        var videoContainer = document.getElementById('video-container');
-        
-        videoSource.setAttribute('src', link);
-        video.load();
-        video.play();
-        videoContainer.style.display = 'block';
+    const btn = document.getElementById('watchbtn');
+    const watchedItems = getWatchedItemsFromCookie();
+
+    btn.addEventListener('click', () => {
+        const currentRoute = window.location.href;
+
+        if (btn.classList.contains('unwatched')) {
+            watchedItems.push(currentRoute);
+            updateWatchedItemsInCookie(watchedItems);
+            btn.classList.remove('unwatched');
+            btn.classList.add('watched');
+            btn.innerText = 'Watched';
+        } else if (btn.classList.contains('watched')) {
+            const index = watchedItems.indexOf(currentRoute);
+            if (index !== -1) {
+                watchedItems.splice(index, 1);
+                updateWatchedItemsInCookie(watchedItems);
+                btn.classList.remove('watched');
+                btn.classList.add('unwatched');
+                btn.innerText = 'Mark as watched';
+            }
+        }
+    });
+
+    function getWatchedItemsFromCookie() {
+        const cookies = document.cookie.split(';');
+        for (const cookie of cookies) {
+            const [name, value] = cookie.trim().split('=');
+            if (name === 'watchedItems') {
+                return value.split(',');
+            }
+        }
+        return [];
+    }
+
+    function updateWatchedItemsInCookie(items) {
+        document.cookie = `watchedItems=${items.join(',')}`;
+    }
+
+    // Check if the current route is in the list of watched items
+    const currentRoute = window.location.href;
+    if (watchedItems.includes(currentRoute)) {
+        btn.classList.remove('unwatched');
+        btn.classList.add('watched');
+        btn.innerText = 'Watched';
+    } else {
+        btn.classList.remove('watched');
+        btn.classList.add('unwatched');
+        btn.innerText = 'Mark as watched';
     }
 </script>
 
+<!-- Video content -->
+<div class="card mt-5">
+    <div class="card-body p-3">
+        <div class="card" id="video-container" style="display: none;">
+            <div class="card-body">
+                <video id="live" autoplay controls>
+                    <source src="" type="video/mp4" id="video-source">
+                </video>
+            </div>
+            <div id="alertDiv" class="alert alert-warning">
+                If the video is stuck, tap on the play button again and wait for a few seconds for it to load.
+            </div>
+        </div>
 
-
-
-
-
-
+        <!-- Stream buttons and other video-related content -->
+        <h3 class="my-3">Stream</h3>
+        <div class="btn-group-horizontal m-3" role="group" aria-label="horizontal button group">
+            <!-- Stream buttons -->
+            {% for v in video['streams'] %}
+                {% if v['height'] != "1080" %}
+                    <button onclick="playVideo('{{ v['url'] }}')" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-play"></i> {{ v['height'] }}
+                    </button>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <a href="https://www.buymeacoffee.com/immodded" class="btn btn-warning btn-sm">Donate</a>
+        <a href="https://t.me/immodded" class="btn btn-success btn-sm">Report</a>
+    </div>
+</div>
 
 <div class="container px-4 px-lg-5 mt-5">
     <div class="navbar navbar-expand-lg">
-        <button class="btn-success btn btn-sm m-3">Episodes</button>
+        <button class="btn btn-success btn btn-sm m-3">Episodes</button>
     </div>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         {% for e in video['episodes'] %}
-        <div class="col mb-5 ">
+        <div class="col mb-5">
             <div class="card h-100 bg-black text-white shadow-5-strong">
-                <div class="badge bg-black text-white position-absolute" style="top: 0.5rem; right: 0.5rem"><i
-                        class="fa-solid fa-eye"></i>{{ e['views'] }}</div>
-                <img class="card-img-top" src={{ e['cover_url'] }} alt={{ e['name'] }} />
-                <div class="card-body p-4 ">
+                <div class="badge bg-black text-white position-absolute" style="top: 0.5rem; right: 0.5rem"><i class="fas fa-eye"></i> {{ e['views'] }}</div>
+                <img class="card-img-top" src="{{ e['cover_url'] }}" alt="{{ e['name'] }}">
+                <div class="card-body p-4">
                     <div class="text-center">
                         <h5 class="fw-bolder">{{ e['name'] }}</h5>
                     </div>
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-info" href="/video/{{ e['slug'] }}"><i
-                                class="fa-solid fa-fire fa-xl"></i></a></div>
+                    <div class="text-center"><a class="btn btn-outline-info" href="/video/{{ e['slug'] }}"><i class="fas fa-fire fa-xl"></i></a></div>
                 </div>
             </div>
         </div>
