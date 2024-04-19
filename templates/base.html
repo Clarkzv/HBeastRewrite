@@ -6,175 +6,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="{% block metatitle %}{% endblock %}">
-    <meta name="description"
-        content="{% block metadescription %}{% endblock metadescription %} Watch hentai online free download HD on mobile phone tablet laptop desktop.  Stream online, regularly released uncensored, subbed, in 720p and 1080p!">
+    <meta name="description" content="{% block metadescription %}{% endblock metadescription %}">
     <meta name="keywords" content="{% block metakeywords %}{% endblock metakeywords %}">
-  <meta property="og:image" content="https://dynamic-og-image-generator.vercel.app/api/generate?title={% block ogtitle %}{% endblock %}&author=HanimeBeast{% if video %}&avatar={{ video['cover_url'] }}{% endif %}&websiteUrl={{ request.build_absolute_uri }}&theme=dracula" />
-    <meta name="google-site-verification" content="mkqPm5yDkXOxdwoMuMdrGcy-GMg186gkqg25JOEQXNg" />
-<!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>   
+    <meta property="og:image" content="" id="ogImage" />
+    <script>
+        // Get the current URL using window.location
+        var currentUrl = window.location.href;
+
+        // Update the content of the og:image meta tag
+        var ogImageTag = document.getElementById('ogImage');
+        ogImageTag.content = "https://image.thum.io/get/maxAge/12/width/700/" + encodeURIComponent(currentUrl);
+    </script>
+
+    <!-- Google site verification -->
+    <meta name="google-site-verification" content="your_verification_code">
+
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyjUFNgSXUCl+cUFEKHlbiInaUlaKUJJ38WSB1SvhlVceCACi5vBqGJSvXXqOImBr7dzXcCPQGorHylurEr/Mw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="<KEY>" crossorigin="anonymous">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+
     <title>{% block title %}{% endblock %} HANIME BEAST</title>
 </head>
-<style>
-        @keyframes neonGlow {
-            0%, 100% {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-            }
-            50% {
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #e60073, 0 0 20px #e60073, 0 0 25px #e60073, 0 0 30px #e60073, 0 0 35px #e60073;
-            }
-        }
-        
-        .neon {
-            animation: neonGlow 1.5s infinite alternate;
-        }
-    </style>
-<body style="background: rgb(238,174,202);
-background: -moz-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(0,35,75,1) 100%);
-background: -webkit-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(0,35,75,1) 100%);
-background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(0,35,75,1) 100%);
-font-family: system-ui;" >
+
+<body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-black navbar-dark ">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <div class="container-fluid">
-                <a href="https://animepixels.onrender.com" target="__blank" class="navbar-brand neon">Watch Anime here</a>
-
-                <div class="d-flex"><button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                        data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fa-brands fa-searchengin"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/trending/month/0">Trending</a></li>
-                            <li class="nav-item"><a href="/browse" class="nav-link">Browse</a></li>
-                            <li class="nav-item">  <a href="https://www.buymeacoffee.com/immodded" class="nav-link">Donate</a></li>
-                            <li class="nav-item">  <a href="https://t.me/immodded" class="nav-link">Contact</a></li>
-                        </ul>
-                        <form method="post" action="/search">
-                            <input type="text" name="search_query" placeholder="Onii chan ...">
-                            <button type="submit" class="btn btn-sm btn-outline-success" >Search</button>
-                        </form>
-                    </div>
+                <a class="navbar-brand" href="/">Hanime Beast</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/trending/month/0">Trending</a></li>
+                        <li class="nav-item"><a href="/browse" class="nav-link">Browse</a></li>
+                        <li class="nav-item"><a href="/api" class="nav-link">API</a></li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
                 </div>
-
             </div>
-
         </nav>
     </header>
-    <div class="container m-10">
-<!-- ad -->
 
-        <!--         main content  -->
+    <!-- Main content -->
+    <div class="container mt-4">
         {% block content %}{% endblock %}
-
-        <div class="alert alert-info my-3" role="alert">
-            <strong>Help Us Bring Higher Quality Content!</strong> We're on a mission to enhance your viewing experience by offering 1080p quality videos. Your support can make this possible. Consider making a donation today to contribute towards this exciting upgrade.
-            <a class="neon btn btn-sm btn-black" href="https://www.buymeacoffee.com/immodded">Donate Now</a>
-        </div>
-
     </div>
 
-
-    <style>
-
-        .floating-buttons {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .floating-button {
-            background-color: #111;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            animation: neon-glow 2s infinite alternate;
-        }
-
-        @keyframes neon-glow {
-            0% {
-                box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
-            }
-            100% {
-                box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
-            }
-        }
-    </style>
-    
+    <!-- Floating buttons -->
     <div class="floating-buttons">
-        <button class="floating-button"><a href="/trending/month/0" class="text-white neon"><i class="fa-solid fa-arrow-trend-up"></i></a></button>
-        <button class="floating-button"><a href="/browse" class="text-white neon"><i class="fa-brands fa-safari"></i></a></button>
+        <a href="/trending/month/0" class="floating-button"><i class="fas fa-arrow-up"></i></a>
+        <a href="/browse" class="floating-button"><i class="fas fa-folder-open"></i></a>
     </div>
-   
 
-
-
-
-
-
-
-
-    
-    
-<footer class="bg-black text-white text-center py-3 mt-3" style=" width: 100%;">
-        Made with <span class="text-danger neon"><a href="https://t.me/immodded" target="_blank">&hearts;</a></span> by <a href="https://github.com/hanimebeast/hanimeapi" class="text-white neon" target="_blank">HanimeBeast</a> &copy; <script>document.write(new Date().getFullYear())</script>
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-white py-3 mt-5">
+        Made with <span class="text-danger">&hearts;</span> by <a href="https://github.com/your_github_username" class="text-white" target="_blank">Your Name</a> &copy; <script>document.write(new Date().getFullYear())</script>
     </footer>
 </body>
 
-<script>
-    const sendTraceRequest = async () => {
-        try {
-            const traceResponse = await fetch('https://1.1.1.1/cdn-cgi/trace');
-            const traceData = await traceResponse.text();
-            const currentUrl = window.location.href;
-            const response = await fetch(`/log`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ traceData, currentUrl }),
-            });
-
-            if (response.ok) {
-                console.log('Data sent to /log successfully.');
-            } else {
-                console.error('Error sending data to /log:', response.status, response.statusText);
-            }
-        } catch (error) {
-            console.error('Error:', error.message);
-        }
-    };
-
-    // Automatically send request when the page loads
-    document.addEventListener('DOMContentLoaded', () => {
-        sendTraceRequest();
-    });
-</script>
-
-
-
-
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- mbd -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </html>
