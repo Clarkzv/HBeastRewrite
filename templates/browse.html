@@ -1,28 +1,25 @@
 {% extends "base.html" %}
-{% block metatitle %}Browse | Hanime on HanimeBeast{% endblock metatitle %}
-{% block ogtitle %}Browse | Hanime on HanimeBeast{% endblock ogtitle %}
-{% block metadescription %}Browse Free Hentai Video Streams Online in 720p, 1080p HD{% endblock metadescription %}
-{% block metakeywords %}hentai, hentai api, hentai porn api, browse porn, browse, {% for t in tags %}{{ t['text'] }},{% endfor %}{% endblock metakeywords %}
+{% block metatitle %}Browse | Hanime on HanimeAPI{% endblock metatitle %}
+{% block metadescription %}Browse hentai videos by tags and brands{% endblock metadescription %}
+{% block metakeywords %}hentai, hentai api, browse, tags, brands {% endblock metakeywords %}
 {% block title %}Browse | HanimeBeast{% endblock %}
 {% block content %}
 
-<div class="container px-4 px-lg-5 mt-5">    
+<div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         {% for t in tags %}
-        <div class="col mb-5 ">
-            <div class="card h-100 bg-black text-white shadow-5-strong">
-                <div class="badge bg-black text-white position-absolute" style="top: 0.5rem; right: 0.5rem"><i
-                        class="fa-solid fa-eye"></i>{{ t['count'] }}</div>
-                <img class="card-img-top" src={{ t['tall_image_url'] }} alt={{ t['text'] }} />
-                <div class="card-body p-4 ">
+        <div class="col mb-5">
+            <div class="card h-100 bg-dark text-white shadow-5-strong">
+                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"><i class="fas fa-eye"></i> {{ t['count'] }}</div>
+                <img class="card-img-top" src="{{ t['tall_image_url'] }}" alt="{{ t['text'] }}">
+                <div class="card-body p-4">
                     <div class="text-center">
                         <h5 class="fw-bolder">{{ t['text'] }}</h5>
                         <p>{{ t['description'] }}</p>
                     </div>
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-info" href="/browse/hentai-tags/{{t['text']}}/0"><i
-                                class="fa-solid fa-fire fa-xl"></i></a></div>
+                    <div class="text-center"><a class="btn btn-outline-info" href="/browse/hentai-tags/{{t['text']}}/0"><i class="fas fa-fire fa-xl"></i></a></div>
                 </div>
             </div>
         </div>
